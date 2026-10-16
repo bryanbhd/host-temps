@@ -9,22 +9,22 @@ check when a box feels hot or slow, on one screen:
 - **ZFS pools:** health, how full they are, scrub/resilver progress with time left, and errors.
   Non-ZFS Incus pools (btrfs/dir/lvm) show how full they are.
 - **Disks:** one row per disk with temperature and read/write MB/s, labelled with its ZFS pool
-  and mirror pair (e.g. `sdc · tank pair 1 · IronWolf ·1A2B`)
+  and mirror pair (e.g. `sdc · tank pair 1 · IronWolf ·1A2B`, using the drive's real model name)
 - **Top 5 processes** by memory and by disk I/O, labelled with their **Incus/LXC container or
   VM**. Disk I/O also shows which storage pool the instance lives on.
 - **With sudo:** SMART bad-sector counts, power-on years and health under each hard drive
 
 ```
  nas01  2026-10-16 08:00:00  ·  refresh 10s  ·  q quit
-╭─ cpu · board  (Threadripper PRO 7965WX) ─────────────────────────────────────╮
+╭─ cpu · board  (CPU model) ───────────────────────────────────────────────────╮
 │ CPU                                    ■■■■■■■■■■···············       55 °C │
-│   core groups 50 · 43 · 43 · 42        ■■■■■■■■■················       50 °C │
+│   core groups 50 · 43                  ■■■■■■■■■················       50 °C │
 │ CPU power (VRM) E 41 · W 38            ■■■■■····················       41 °C │
-│ CPU busy (of 48 threads)               ■■■······················        6.44 │
-│ Memory in use                          ■■■■■■■■■■■··············    113/251G │
+│ CPU busy (of 32 threads)               ■■■······················        6.44 │
+│ Memory in use                          ■■■■■■■■■■■··············     38/128G │
 ╰──────────────────────────────────────────────────────────────────────────────╯
 ╭─ graphics cards ─────────────────────────────────────────────────────────────╮
-│ GPU 1 · RTX 3090 · 0% · 0.8/24G        ■■■■·····················       32 °C │
+│ GPU 1 · GPU model · 0% · 0.8/24G       ■■■■·····················       32 °C │
 ╰──────────────────────────────────────────────────────────────────────────────╯
 ╭─ storage pools ──────────────────────────────────────────────────────────────╮
 │ tank · 15% full                        ■■■······················    DEGRADED │
@@ -32,10 +32,10 @@ check when a box feels hot or slow, on one screen:
 │ fast · 3% full                         ·························      ONLINE │
 ╰──────────────────────────────────────────────────────────────────────────────╯
 ╭─ disks  (temp · read/write MB/s) ────────────────────────────────────────────╮
-│ nvme0 · fast · Intel P45x0             ■■■■········       40 °C      0.0/1.2 │
-│ nvme1 · system · Corsair MP700         ■■■■········       42 °C      0.0/0.4 │
-│ sda · tank pair 1 · IronWolf ·1A2B     ■■··········       29 °C     118/0.0 │
-│ sde · tank pair 1 · WD Red Plus ·9F3C  ■■■·········       31 °C     0.0/121 │
+│ nvme0 · fast · NVMe SSD                ■■■■········       40 °C      0.0/1.2 │
+│ nvme1 · system · NVMe SSD              ■■■■········       42 °C      0.0/0.4 │
+│ sda · tank pair 1 · HDD ·1A2B          ■■··········       29 °C      118/0.0 │
+│ sde · tank pair 1 · HDD ·9F3C          ■■■·········       31 °C      0.0/121 │
 │   unreadable 0 · uncorrectable 0 · remapped 0 · 0.0 yrs on · PASSED          │
 ╰──────────────────────────────────────────────────────────────────────────────╯
 ╭─ top 5 · memory  (bar = vs biggest) ─────────────────────────────────────────╮
@@ -45,7 +45,8 @@ check when a box feels hot or slow, on one screen:
 ```
 
 The real thing is in colour, redraws in place on the terminal's alternate screen, and resizes
-with the window. That sample is trimmed and uses made-up host, pool and instance names.
+with the window. That sample is trimmed and uses made-up host, pool, instance and hardware names; the
+real output shows your CPU, GPU and drive models.
 
 ## Run it
 
